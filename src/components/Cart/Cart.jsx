@@ -6,6 +6,7 @@ import {
   Grid,
   CircularProgress,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import useStyles from "./Cart.styles";
 import CartItem from "./CartItem/CartItem";
@@ -15,7 +16,11 @@ export default function Cart({ cart }) {
 
   const EmptyCart = () => (
     <Typography variant="subtitle1">
-      You have no items in your shopping cart. Start adding some!
+      You have no items in your shopping cart.
+      <Link to="/" className={classes.link}>
+        Start adding some
+      </Link>{" "}
+      !
     </Typography>
   );
   const FilledCart = () => (

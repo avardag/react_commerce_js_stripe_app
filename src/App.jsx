@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Products, Navbar, Cart } from "./components";
 import { commerce } from "./lib/commerce";
 
@@ -26,10 +27,18 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <Navbar totalItems={cart.total_items} />
-      {/* <Products products={products} onAddtoCart={handleAddToCart} /> */}
-      <Cart cart={cart} />
-    </>
+    <Router>
+      <>
+        <Navbar totalItems={cart.total_items} />
+        <Switch>
+          <Route exact path="/">
+            <Products products={products} onAddtoCart={handleAddToCart} />
+          </Route>
+          <Route exact path="/cart">
+            <Cart cart={cart} />
+          </Route>
+        </Switch>
+      </>
+    </Router>
   );
 }
