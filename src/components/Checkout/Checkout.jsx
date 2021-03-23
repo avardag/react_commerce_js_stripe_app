@@ -10,7 +10,7 @@ import {
   Divider,
   Button,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 
@@ -21,6 +21,7 @@ const steps = ["Shipping Address", "Payment Details"];
 
 export default function Checkout({ cart, order, onCaptureCheckout, error }) {
   const classes = useStyles();
+  const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
@@ -34,7 +35,9 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
           });
 
           setCheckoutToken(token);
-        } catch {}
+        } catch (error) {
+          history.push("/");
+        }
       };
 
       generateToken();
@@ -99,6 +102,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
 
   return (
     <>
+      <CssBaseline />
       <div className={classes.toolbar} />
       <main>
         <Paper className={classes.layout}>
